@@ -8,6 +8,11 @@ import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
   plugins: [
+    tanstackStart({
+      sitemap: {
+        host: 'louvre.harris-home.org'
+      }
+    }),
     devtools(),
     nitro(),
     // this is the plugin that enables path aliases
@@ -18,9 +23,6 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
-  server: {
-    allowedHosts: ['louvre.harris-home.org']
-  }
 })
 
 export default config
