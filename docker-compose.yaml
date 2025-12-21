@@ -1,3 +1,6 @@
+networks:
+  npm-network:
+    external: true
 services:
   web:
     container_name: louvre_security
@@ -6,3 +9,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    networks:
+      - npm-network
