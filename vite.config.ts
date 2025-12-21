@@ -18,6 +18,9 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
+  server: {
+    allowedHosts: ['louvre.harris-home.org']
+  }
 })
 
 export default config
