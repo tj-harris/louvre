@@ -1,10 +1,17 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
-
-import Header from '../components/Header'
-
-import appCss from '../styles.css?url'
+/// <reference types="vite/client" />
+import {
+  HeadContent,
+  Link,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import * as React from 'react'
+import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
+import { NotFound } from '~/components/NotFound'
+import appCss from '~/styles/app.css?url'
+import { seo } from '~/utils/seo'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -16,41 +23,70 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      {
-        title: 'Louvre Security',
-      },
+      ...seo({
+        title:
+          'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
+        description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+      }),
     ],
     links: [
+      { rel: 'stylesheet', href: appCss },
       {
-        rel: 'stylesheet',
-        href: appCss,
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
       },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png',
+      },
+      { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
+      { rel: 'icon', href: '/favicon.ico' },
     ],
   }),
-
-  shellComponent: RootDocument,
+  errorComponent: (props) => {
+    return (
+      <RootLayout>
+        <DefaultCatchBoundary {...props} />
+      </RootLayout>
+    )
+  },
+  notFoundComponent: () => <NotFound />,
+  component: RootComponent,
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootComponent() {
   return (
-    <html lang="en">
+    <RootLayout>
+      <Outlet />
+    </RootLayout>
+  )
+}
+
+function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
       <head>
         <HeadContent />
       </head>
       <body className='bg-purple-100'>
-        <Header />
+        <header className="p-4 flex items-center bg-purple-600 text-white shadow-lg">
+        <h1 className="ml-4 text-xl font-semibold">
+          <Link to="/">
+            LOUVRE SECURITY
+          </Link>
+        </h1>
+      </header>
         {children}
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+        <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
     </html>

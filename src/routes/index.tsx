@@ -11,8 +11,8 @@ function App() {
       {!correctPass && 
       (
         <>
-        <div className="text-center text-xl">CCTV Login</div>
-      <div>Password: 
+        <div className="text-center text-xl">Login</div>
+      <div className="text-center">Password: 
         <input onInput={(e) => { setPass(e.currentTarget.value)}} type="password" className="border rounded ml-5" />
       </div>
         </>
