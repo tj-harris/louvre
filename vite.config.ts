@@ -11,7 +11,12 @@ const config = defineConfig({
     tanstackStart({
       sitemap: {
         host: 'louvre.harris-home.org'
-      }
+      },
+      prerender: {
+        enabled: true,
+        failOnError: false,
+        outputPath: '/index.html'
+      },
     }),
     devtools(),
     nitro(),
