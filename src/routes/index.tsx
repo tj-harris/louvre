@@ -18,7 +18,7 @@ function App() {
         </>
       )}
       {correctPass && (
-        <div> Clue #^ asdijflaskdjvlekrjekrj</div>
+        <div> Attention: someone has been taking lunches that are not their own from the <strong>REFRIGERATOR</strong>. Please do not touch others food. Thank you.</div>
       )}
     </div>
   )
